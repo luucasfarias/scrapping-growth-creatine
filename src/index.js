@@ -28,12 +28,12 @@ async function findWord(word, str) {
 }
 
 async function sendMessage(message) {
-  var client = new twilio('AC53acf3106e07f60f3a0ec4715e76186a', 'da88777f002fbd90a09408c9afccf593');
+  var client = new twilio('TWILIO_ACCOUNT_SID', 'TWILIO_AUTH_TOKEN');
 
   // Send the text message. 
   client.messages.create({
-    to: '+5598985005688',
-    from: '+17816505436',
+    to: '',
+    from: '',
     body: message
   });
 }
