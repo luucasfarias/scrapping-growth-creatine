@@ -1,0 +1,16 @@
+{
+  "name": "puppetier-growth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-cron": "^3.0.2",
+    "puppeteer": "^17.1.1",
+    "twilio": "^3.81.0"
+  }
+}
