@@ -1,7 +1,7 @@
-require('dotenv').config();
 const cron = require('node-cron');
 const puppeteer = require('puppeteer');
 const twilio = require('twilio');
+require('dotenv').config();
 
 const url = 'https://www.gsuplementos.com.br/creatina-monohidratada-250gr-growth-supplements-p985931';
 const urlSecondary = 'https://www.gsuplementos.com.br/bcaa-2-1-1-200g-em-po-growth-supplements-p985949';
@@ -18,6 +18,7 @@ async function checkGrowth() {
   console.log(result);
 
   if (result > 0) {
+    console.log('chamou');
     await sendMessage('Corre la... Creatina disponivel para compra');
   } else {
     console.log('nao esta disponivel pra comprar');
@@ -41,7 +42,7 @@ async function sendMessage(message) {
   });
 }
 
-cron.schedule('0 */1 * * * *', async () => {
+cron.schedule('0 * * * * *', async () => {
   console.log('running a task every minute');
   await checkGrowth();
 });
