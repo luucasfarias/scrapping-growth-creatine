@@ -1,14 +1,13 @@
-import { schedule } from 'node-cron';
-import { launch } from 'puppeteer';
-import twilio from 'twilio';
-// require('env').env();
 require('dotenv').config();
+const cron = require('node-cron');
+const puppeteer = require('puppeteer');
+const twilio = require('twilio');
 
 const url = 'https://www.gsuplementos.com.br/creatina-monohidratada-250gr-growth-supplements-p985931';
 const urlSecondary = 'https://www.gsuplementos.com.br/bcaa-2-1-1-200g-em-po-growth-supplements-p985949';
 
 async function checkGrowth() {
-  const browser = await launch();
+  const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto(urlSecondary);
   
@@ -42,7 +41,7 @@ async function sendMessage(message) {
   });
 }
 
-schedule('0 */1 * * * *', async () => {
+cron.schedule('0 */1 * * * *', async () => {
   console.log('running a task every minute');
   await checkGrowth();
 });
