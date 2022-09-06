@@ -10,7 +10,7 @@ const urlSecondary = 'https://www.gsuplementos.com.br/bcaa-2-1-1-200g-em-po-grow
 async function checkGrowth() {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
-  await page.goto(url);
+  await page.goto(urlSecondary);
   
   const text = await page.$eval(".boxFinalizarCompra > a > button", element => element.textContent);
 
