@@ -1,6 +1,8 @@
 const cron = require('node-cron');
 const puppeteer = require('puppeteer');
 const twilio = require('twilio');
+// require('env').env();
+require('dotenv').config();
 
 const url = 'https://www.gsuplementos.com.br/creatina-monohidratada-250gr-growth-supplements-p985931';
 const urlSecondary = 'https://www.gsuplementos.com.br/bcaa-2-1-1-200g-em-po-growth-supplements-p985949';
@@ -13,6 +15,8 @@ async function checkGrowth() {
   const text = await page.$eval(".boxFinalizarCompra > a > button", element => element.textContent);
 
   const result = await findWord('COMPRAR', text);
+
+  console.log(result);
 
   if (result > 0) {
     await sendMessage('Corre la... Creatina disponivel para compra');
@@ -28,18 +32,17 @@ async function findWord(word, str) {
 }
 
 async function sendMessage(message) {
-  var client = new twilio('TWILIO_ACCOUNT_SID', 'TWILIO_AUTH_TOKEN');
+  var client = new twilio(`${process.env.TWILIO_ACCOUNT_SID}`, `${process.env.TWILIO_AUTH_TOKEN}`);
 
   // Send the text message. 
   client.messages.create({
-    to: '',
-    from: '',
+    to: `${process.env.YOUR_NUMBER}`,
+    from: `${process.env.TWILIO_NUMBER}`,
     body: message
   });
 }
 
-
-cron.schedule('0 */5 * * * *', async () => {
+cron.schedule('0 */1 * * * *', async () => {
   console.log('running a task every minute');
   await checkGrowth();
 });
