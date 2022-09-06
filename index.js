@@ -42,7 +42,7 @@ async function sendMessage(message) {
   });
 }
 
-cron.schedule('0 * * * * *', async () => {
-  console.log('running a task every minute');
+cron.schedule('0 */1 * * * *', async () => {
+  console.log('running a task');
   await checkGrowth();
 });
